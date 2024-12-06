@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce</title>
+    <link rel="stylesheet" href="task.css">
+</head>
+<body>
+    <nav>
+        <h1>ALL COLLECTION</h1>
+        <form >
+            <input type="search" id="sortby" name="sort-by" placeholder="sort-by">
+        </form>
+    </nav>
+    <div class="container">
+    </div>
+    <script>
+        let container = document.querySelector('.container')
+        console.log(container)
+
+ const allCollection = async (value)=>{
+    const data = await fetch(`https://interveiw-mock-api.vercel.app/api/getProducts`)
+    const response = await data.json();
+    console.log(response)
+
+    response.data.forEach(ele => {
+        let div = document.createElement('div')
+        let img =  document.createElement('img')
+        img.className = 'img1'
+        let title = document.createElement('h2')
+        title.className = 'title'
+        let tag = document.createElement('p')
+        let id = document.createElement('h4')
+       let button = document.createElement('button')
+         button.className = 'button'
+       
+       title.innerHTML = ele.product.title
+       img.src = ele.product.image.src
+       button.innerHTML = "Add to card"
+       tag.innerHTML = ele.product.tags
+       id.innerHTML =  `id: ${ele.product.id}`
+       
+       div.append (img,title,tag,id,button)
+        container.appendChild(div)
+    });
+ }
+ allCollection()
+       </script>
+</body>
+</html>
